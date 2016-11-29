@@ -62,4 +62,8 @@ rm("test.data","train.data")
 #uses dplyr 0.5.0
 tidy.data.set <- total.data %>% group_by(subject.Id, activity) %>%  summarise_all(.funs = c(Mean="mean"))
 
+#cleaning up the names, removing the dots and underscores
+names(tidy.data.set) <-gsub("\\.+","", names(tidy.data.set))
+names(tidy.data.set) <-gsub("_","", names(tidy.data.set))
+
 write.table(tidy.data.set,file="tidy_data_set.txt",quote = F,row.names = F,col.names = T )
