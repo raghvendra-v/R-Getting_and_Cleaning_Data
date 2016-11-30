@@ -2,8 +2,8 @@
 
 ## load.har.ds.from.zip: this function loads the human activity recognition data-set from the a temporary zip file
 ## decided to make this a function since same steps need to be executed for test and training dataset
-load.har.ds.from.zip <- function(tmp.zip.file, data.set.type, headers, activity.labels ) {
-
+load.har.ds.from.zip <- function(tmp.zip.file, data.set.type ) {
+    
     # First load the feature headers from features.txt and activity labels from the activity_labels.txt
     headers <- read.table(unzip(zipfile = temp.zip.file,files = file.path("UCI HAR Dataset","features.txt")), sep="", strip.white = T,stringsAsFactors = F,header = F, col.names =c("ActivityId","ActivityName"))
     activity.labels <- read.table(unzip(zipfile = temp.zip.file,files = file.path("UCI HAR Dataset","activity_labels.txt")), sep="", strip.white = T,stringsAsFactors = F,header = F, col.names =c("FeatureID","FeatureType"))
@@ -44,8 +44,8 @@ temp.zip.file <- tempfile()
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",temp.zip.file)
 
 #load the measurements , once from training dataset and once for test dataset
-test.data <- load.har.ds.from.zip(temp.zip.file,"test",headers,activity.labels)
-train.data <- load.har.ds.from.zip(temp.zip.file,"train",headers,activity.labels)
+test.data <- load.har.ds.from.zip(temp.zip.file,"test")
+train.data <- load.har.ds.from.zip(temp.zip.file,"train")
 
 
 ## 1.Merges the training and the test sets to create one data set.
